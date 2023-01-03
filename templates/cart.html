@@ -1,0 +1,94 @@
+{%extends 'base.html'%}
+
+
+{%block con%}
+    <form method="post" action="{%url 'cart:buy'%}">
+        {%csrf_token%}
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-3">
+                    <h1><i class="fa-solid fa-cart-arrow-down"></i> 장바구니</h1><br><br>
+                    <div class="mb-3">
+                        <label  class="form-label">전화번호</label>
+                        <input name = "phone" type="text" class="form-control">
+                        <div id="emailHelp" class="form-text">쿠폰을 적립할 전화번호를 써주세요('-')제외</div><br>
+                    </div>
+                </div>
+    
+                <div class="col-9" >
+                    <br><br><br><br>
+                    
+                
+                        <table border="1" class = "border border-warning" width ="500">
+                            <tr>
+                                <th></th>
+                                <th>음식이름</th>
+                                <th>가격</th>
+                                <th>수량</th>
+                                <th>취소</th>
+                            </tr>
+
+                            {%for i in cset%}
+                                <tr>
+                                    <td><img src="{{i.img.url}}" style = "height:80px; width:100px;"></td>
+                                    <td>{{i.name}}</td>
+                                    <td>{{i.price}}</td>
+                                    <td>&nbsp;&nbsp;{{i.num}}</td>
+                                    <th><a href="{%url 'cart:remove' i.id%}"><button type="button" class="btn btn-danger" style ="height:30px; width:30px;"><i class="fa-solid fa-xmark"></i></button></th></a>
+                                </tr>
+                                <tr>
+                                    <th><hr></th>
+                                    <th><hr></th>
+                                    <th><hr></th>
+                                    <th><hr></th>
+                                </tr>
+                            {%empty%}
+                                <h4>담겨있는 상품이 없어요!</h4>
+                            {%endfor%}
+                            <tr>
+                                <th style ="text-align: right;"><b>TOTAL : {{cart_sum}}원</b></th>
+                                <th></th>
+                                <th><button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">쿠폰사용</button>
+                                <th><button class="btn btn-primary">주문하기</button></th>
+                            </tr>
+                        </table>
+
+                        {%for message in messages%}
+                            <div class ="btn btn-danger rounded-pill px-5 my-3">
+                                {{message}}
+                            </div>
+                        {%endfor%}
+
+                
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">쿠폰확인</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="{%url 'cart:cupponuse'%}">
+                {%csrf_token%}
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">전화번호</label>
+                  <input name = "phone" placeholder = "(-)제외" type="text" class="form-control" id="recipient-name">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button class="btn btn-primary">쿠폰사용</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div></th>
+    
+    <script src="https://kit.fontawesome.com/4132db2d5e.js" crossorigin="anonymous"></script>
+
+
+{%endblock%}

@@ -1,0 +1,87 @@
+
+{%extends 'base.html'%}
+
+{%load mathfilters%}
+
+{%block con%}
+
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-3">
+            <h1>쿠폰</h1>
+            <b>물고기 10개모아서<br> 공짜 커피/에이드 드세요!</b><br>
+            (9900원이상 메뉴 먹을때마다 물고기 1개!)
+            <br><br><br>
+            {%if button == 1%}
+                물고기갯수:<br>
+                {%for i in sum%}
+                    {%if i == 5%}
+                        <i class="fa-solid fa-fish-fins"></i><br>
+                    {%else%}
+                        <i class="fa-solid fa-fish-fins"></i>
+                    {%endif%}
+                {%endfor%}
+                <br>
+
+                {%if num == 10%}
+                    공짜 커피/에이드 드세요!
+                {%elif num >= 0%}
+                    앞으로 {{num|sub:10|mul:-1}}물고기 남았어요!
+                {%else%}
+                    번호가 잘못됬어요
+                {%endif%}
+            {%endif%}
+           
+        </div>
+        <div class="col-9">
+            <br><br><br><br>
+                <form method="post">
+                    {%csrf_token%}
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">전화번호</label>
+                        <input name = "phone" type="text" class="form-control" id="exampleInputPassword1">
+                        <div id="emailHelp" class="form-text">('-')를 제외하고 써주세요</div><br>
+                        <label for="exampleInputPassword1" class="form-label">인증번호</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1">
+                        <div id="emailHelp" class="form-text">인증번호 4자리를 입력해주세요</div><br>
+                    </div>
+                    <button type="submit" class="btn btn-primary">보유물고기 확인하기</button>
+                    {%for message in messages%}
+                        <div class ="btn btn-danger rounded-pill px-5 my-3">
+                            {{message}}
+                        </div>
+                    {%endfor%}
+                </form>
+        </div>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/4132db2d5e.js" crossorigin="anonymous"></script>
+
+{%endblock%}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <h2 class="fs-5">Popover in a modal</h2>
+            <p>This <button class="btn btn-secondary" data-bs-toggle="popover" title="Popover title" data-bs-content="Popover body content is set in this attribute.">button</button> triggers a popover on click.</p>
+            <hr>
+            <h2 class="fs-5">Tooltips in a modal</h2>
+            <p><a href="#" data-bs-toggle="tooltip" title="Tooltip">This link</a> and <a href="#" data-bs-toggle="tooltip" title="Tooltip">that link</a> have tooltips on hover.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

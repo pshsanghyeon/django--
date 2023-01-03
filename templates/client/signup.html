@@ -1,0 +1,51 @@
+{%extends 'base.html' %}
+
+
+
+{%block con%}
+<div class="container">
+    <div class="row my-5">
+        <div class="col-3">
+            <h1>회원가입</h1><br><br>
+            <b>회원등록을 하시면 <br>물고기 10개를 모아서 무료로 <br>음료하나를 드실 수 있습니다!!</b>
+        </div>
+
+        <div class="col-9">
+            <br><br><br><br>
+
+            <form method="post">
+                {%csrf_token%}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">이름</label>
+                  <input name = "name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">전화번호</label>
+                  <input name = "phone" type="text" class="form-control" id="exampleInputPassword1">
+                  <div id="emailHelp" class="form-text">('-')를 제외하고 써주세요</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">인증번호</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1">
+                    <div id="emailHelp" class="form-text">인증번호 4자리를 입력해주세요</div>
+                  </div>
+                <button type="submit" class="btn btn-primary">회원등록하기</button>
+                    {%for message in messages%}
+                        <div class ="btn btn-danger rounded-pill px-5 my-3">
+                            {{message}}
+                        </div>
+                    {%endfor%}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+{%endblock%}
+

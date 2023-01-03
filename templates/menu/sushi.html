@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+
+
+{%block con%}
+    <form>
+        <div class="container"><br><br>
+            <h1><pre>                                      {{kind}}</pre></h1>
+            <div class="row my-5">
+                <div class="col-3">
+                    <h1>메뉴</h1><br>
+                    <a href="{%url 'menu:sushi' %}"><button type="button" class="btn btn-outline-warning">스시 <span class= "badge text-bg-danger">NEW</span></button><br><br></a>
+                    <a href="{%url 'menu:side' %}"><button type="button" class="btn btn-outline-warning">사이드</button><br><br></a>
+                    <a href="{%url 'menu:set' %}"><button type="button" class="btn btn-outline-warning">세트</button><br><br></a>
+                    <a href="{%url 'menu:drink' %}"><button type="button" class="btn btn-outline-warning">음료/주류</button><br><br></a>
+                    <a href="{%url 'menu:inari' %}"><button type="button" class="btn btn-outline-warning">토핑유부</button><br><br></a>
+                    <a href="{%url 'menu:basic' %}"><button type="button" class="btn btn-outline-warning">단품</button><br><br></a>
+                    <a href="{%url 'menu:coffee' %}"><button type="button" class="btn btn-outline-warning">커피/에이드</button><br><br></a>
+                </div>
+
+                <div class="col-9">
+
+                    <div class="row my-5">
+                        
+                        {%for i in mset%}
+                            <div class="col-4">
+                                <div class="card" style="width:18rem;">
+                                    <img src="{{i.img.url}}" style = "height:260px;" class="card-img-top">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{i.name}} {%if i.name == "위대한 스시 26P" or i.name == "알뜰 모듬 스시 10P"%}<span class= "badge text-bg-danger">인기</span>{%endif%}</h5> 
+                                    <p class="fs-7 card-text">{{i.content}}</p>
+                                    <p class="">{{i.price}}원</p>
+                                    <a href ="{%url 'cart:addcart' i.name i.kind%}"><p class="btn btn-primary">담기</p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {%empty%}
+                            <h1>메뉴가 없어요!</h1>
+                        {%endfor%}
+                        <hr>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </form>
+{%endblock%}
